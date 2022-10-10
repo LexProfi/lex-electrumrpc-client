@@ -19,10 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-import lex.electrumrpc.client.wrapers.AddressBalanceInfo;
-import lex.electrumrpc.client.wrapers.AddressBalanceInfoWrapper;
-import lex.electrumrpc.client.wrapers.TransactionStatus;
-import lex.electrumrpc.client.wrapers.TransactionStatusWrapper;
+import lex.electrumrpc.client.wrapers.*;
 import lex.electrumrpc.krotjson.Base64Coder;
 import lex.electrumrpc.krotjson.JSON;
 
@@ -108,7 +105,7 @@ public class ElectrumJSONRPCClient implements ElectrumRpcClient {
   public Object loadResponse(InputStream in, Object expectedID, boolean close) throws IOException, lex.electrumrpc.client.GenericRpcException {
     try {
       String r = new String(loadStream(in, close), QUERY_CHARSET);
-      logger.log(Level.FINE, "Bitcoin JSON-RPC response:\n{0}", r);
+      logger.log(Level.FINE, "Electrum JSON-RPC response:\n{0}", r);
       try {
         Map response = (Map) JSON.parse(r);
 
@@ -126,7 +123,7 @@ public class ElectrumJSONRPCClient implements ElectrumRpcClient {
     public Object loadBatchResponse(InputStream in, List<BatchParam> batchParams, boolean close) throws IOException,lex.electrumrpc.client.GenericRpcException {
         try {
             String r = new String(loadStream(in, close), QUERY_CHARSET);
-            logger.log(Level.FINE, "Bitcoin JSON-RPC response:\n{0}", r);
+            logger.log(Level.FINE, "Electrum JSON-RPC response:\n{0}", r);
             try {
                 List<Map> response = (List<Map>) JSON.parse(r);
 
@@ -160,7 +157,7 @@ public class ElectrumJSONRPCClient implements ElectrumRpcClient {
   }
 
   /**
-   * Set an authenticated connection with Bitcoin server
+   * Set an authenticated connection with Electrum Daemon
    */
   private HttpURLConnection setConnection() {
     HttpURLConnection conn;
@@ -259,20 +256,20 @@ public class ElectrumJSONRPCClient implements ElectrumRpcClient {
   public boolean isMine(String address) throws GenericRpcException {
     return (boolean) query("ismine", address);
   }
+  @Override
+  public PayToInfo payTo(String address, BigDecimal amount, BigDecimal fee, String fromAddress, String remainderAddress)
+          throws GenericRpcException {
+    return new PayToInfoWrapper((Map<String, ?>) query("payto", address, amount, fee, fromAddress, remainderAddress));
+  }
 
   @Override
-  public String payTo(String address, BigDecimal amount, BigDecimal fee, String fromAddress) throws GenericRpcException {
-    return (String) query("payto", address, amount, fee, fromAddress);
+  public PayToInfo payTo(String address, BigDecimal amount, BigDecimal fee, String fromAddress) throws GenericRpcException {
+    return new PayToInfoWrapper((Map<String, ?>) query("payto", address, amount, fee, fromAddress, fromAddress));
   }
 
   @Override
   public String payTo(String address, BigDecimal amount) throws GenericRpcException {
     return (String) query("payto", address, amount);
-  }
-
-  @Override
-  public String signTransaction(String tx) throws GenericRpcException {
-    return (String) query("signtransaction", tx);
   }
 
   @Override
