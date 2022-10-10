@@ -26,6 +26,8 @@ import lex.electrumrpc.client.wrapers.TransactionStatusWrapper;
 import lex.electrumrpc.krotjson.Base64Coder;
 import lex.electrumrpc.krotjson.JSON;
 
+import static lex.electrumrpc.krotjson.Custom.None;
+
 
 public class ElectrumJSONRPCClient implements ElectrumRpcClient {
 
@@ -262,7 +264,7 @@ public class ElectrumJSONRPCClient implements ElectrumRpcClient {
 
   @Override
   public String payTo(String address, BigDecimal amount, BigDecimal fee, String fromAddress) throws GenericRpcException {
-    return (String) query("payto", address, amount, fee, "None", fromAddress);
+    return (String) query("payto", address, amount, fee, None, fromAddress);
   }
 
   @Override
