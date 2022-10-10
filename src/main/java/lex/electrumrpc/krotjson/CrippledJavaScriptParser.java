@@ -176,7 +176,8 @@ public class CrippledJavaScriptParser {
         }
     }
     private static Keyword[] keywords = {
-        new Keyword("null", "None"),
+        new Keyword("null", null),
+        new Keyword("None", "None"),
         new Keyword("true", Boolean.TRUE),
         new Keyword("false", Boolean.FALSE),
     };
