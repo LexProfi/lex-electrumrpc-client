@@ -1,10 +1,9 @@
 package lex.electrumrpc.client;
 
-import lex.electrumrpc.client.wrapers.AddressBalanceInfo;
-import lex.electrumrpc.client.wrapers.PayToInfo;
-import lex.electrumrpc.client.wrapers.TransactionStatus;
+import lex.electrumrpc.client.wrapers.*;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author Lex itconsult70@gmail.com
@@ -129,4 +128,22 @@ public interface ElectrumRpcClient {
      * @throws GenericRpcException
      */
     public BigDecimal getFeeRate() throws GenericRpcException;
+
+    /**
+     * Returns the UTXO list of any address. Note: This
+     * is a walletless server query, results are not checked by SPV.
+     * @param address
+     * @return List<AddressUnspent>
+     * @throws GenericRpcException
+     */
+    public List<AddressUnspent> getAddressUnspent(String address) throws GenericRpcException;
+
+    /**
+     * Return the transaction history of any address. Note: This is a
+     * walletless server query, results are not checked by SPV.
+     * @param address
+     * @return List<AddressHistory>
+     * @throws GenericRpcException
+     */
+    public List<AddressHistory> getAddressHistory(String address) throws GenericRpcException;
 }

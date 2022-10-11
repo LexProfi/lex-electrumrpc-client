@@ -11,7 +11,10 @@ public class TransactionStatusWrapper extends MapWrapper implements TransactionS
     public TransactionStatusWrapper(Map<String, ?> m) {
         super(m);
     }
+
     @Override
-    public int confirmations(){ return mapInt("confirmations");}
+    public int confirmations(){
+        return mapInt("confirmations");
+    }
 
 }

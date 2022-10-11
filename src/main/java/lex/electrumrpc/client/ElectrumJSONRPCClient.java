@@ -297,6 +297,24 @@ public class ElectrumJSONRPCClient implements ElectrumRpcClient {
     return BigDecimal.valueOf(((Double) query("getfeerate")) * 0.00000001);
   }
 
+  @Override
+  public List<AddressUnspent> getAddressUnspent(String address) {
+    return new ListMapWrapper<AddressUnspent>((List<Map<String, ?>>) query("getaddressunspent")) {
+      protected AddressUnspent wrap(final Map m) {
+        return new AddressUnspentWrapper(m);
+      }
+    };
+  }
+
+  @Override
+  public List<AddressHistory> getAddressHistory(String address) {
+    return new ListMapWrapper<AddressHistory>((List<Map<String, ?>>) query("getaddresshistory")) {
+      protected AddressHistory wrap(final Map m) {
+        return new AddressHistoryWrapper(m);
+      }
+    };
+  }
+
   private class BatchParam {
       public final String id;
       public final Object[] params;

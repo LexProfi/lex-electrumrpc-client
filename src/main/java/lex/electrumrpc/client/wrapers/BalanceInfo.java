@@ -6,5 +6,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 public interface BalanceInfo extends MapWrapperType, Serializable {
+
     BigDecimal confirmed();
+
 }

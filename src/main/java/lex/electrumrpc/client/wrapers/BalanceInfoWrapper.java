@@ -8,11 +8,14 @@ import java.util.Map;
 
 @SuppressWarnings("serial")
 public class BalanceInfoWrapper extends MapWrapper implements BalanceInfo, Serializable {
+
     public BalanceInfoWrapper(Map<String, ?> m) {
         super(m);
     }
 
     @Override
-    public BigDecimal confirmed(){ return mapBigDecimal("confirmed");}
+    public BigDecimal confirmed(){
+        return mapBigDecimal("confirmed");
+    }
 
 }
