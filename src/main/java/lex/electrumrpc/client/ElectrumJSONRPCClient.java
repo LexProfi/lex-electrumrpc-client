@@ -308,7 +308,7 @@ public class ElectrumJSONRPCClient implements ElectrumRpcClient {
 
   @Override
   public List<AddressHistory> getAddressHistory(String address) {
-    return new ListMapWrapper<AddressHistory>((List<Map<String, ?>>) query("getaddresshistory")) {
+    return new ListMapWrapper<AddressHistory>((List<Map<String, ?>>) query("getaddresshistory", address)) {
       protected AddressHistory wrap(final Map m) {
         return new AddressHistoryWrapper(m);
       }
