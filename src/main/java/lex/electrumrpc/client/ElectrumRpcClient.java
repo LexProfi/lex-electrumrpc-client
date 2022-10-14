@@ -153,4 +153,12 @@ public interface ElectrumRpcClient {
      * @throws GenericRpcException
      */
     public WalletHistory getWalletHistory() throws GenericRpcException;
+
+    /**
+     * Wallet onchain history. Returns the transaction history of your wallet.
+     * @param fromHeight
+     * @return
+     * @throws GenericRpcException
+     */
+    public WalletHistory getWalletHistory(Long fromHeight) throws GenericRpcException;
 }

@@ -320,6 +320,11 @@ public class ElectrumJSONRPCClient implements ElectrumRpcClient {
     return new WalletHistoryWrapper((Map<String, ?>) query("onchain_history"));
   }
 
+  @Override
+  public WalletHistory getWalletHistory(Long fromHeight) throws GenericRpcException {
+    return new WalletHistoryWrapper((Map<String, ?>) query("onchain_history", fromHeight));
+  }
+
   private class BatchParam {
       public final String id;
       public final Object[] params;
