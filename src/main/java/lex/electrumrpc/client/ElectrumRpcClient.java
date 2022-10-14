@@ -146,4 +146,11 @@ public interface ElectrumRpcClient {
      * @throws GenericRpcException
      */
     public List<AddressHistory> getAddressHistory(String address) throws GenericRpcException;
+
+    /**
+     * Wallet onchain history. Returns the transaction history of your wallet.
+     * @return WalletHistory
+     * @throws GenericRpcException
+     */
+    public WalletHistory getWalletHistory() throws GenericRpcException;
 }
